@@ -1,0 +1,14 @@
+# --- BACKEND EXCLUSIONS ---
+ccs-ticketing-backend/venv/
+ccs-ticketing-backend/.env
+ccs-ticketing-backend/__pycache__/
+ccs-ticketing-backend/*.db
+
+# --- FRONTEND EXCLUSIONS ---
+ccs-ticketing-frontend/node_modules/
+ccs-ticketing-frontend/.next/
+ccs-ticketing-frontend/.env*
+
+# --- OS & EDITOR EXCLUSIONS ---
+.DS_Store
+.vscode/
