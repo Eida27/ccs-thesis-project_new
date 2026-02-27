@@ -28,16 +28,24 @@ def analyze_ticket_nlp(description: str) -> dict:
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini", # Cost-effective and fast for simple classification
+            model="gpt-4o-mini",
+            response_format={ "type": "json_object" }, # NEW: Forces strict JSON
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": description}
             ],
-            temperature=0.2 # Low temperature for highly deterministic outputs
+            temperature=0.2 
         )
         
-        # Parse the JSON response from the LLM
-        result = json.loads(response.choices[0].message.content)
+        raw_content = response.choices[0].message.content.strip()
+        
+        # NEW: Defensive programming to strip accidental markdown
+        if raw_content.startswith("```json"):
+            raw_content = raw_content[7:-3].strip()
+        elif raw_content.startswith("```"):
+            raw_content = raw_content[3:-3].strip()
+            
+        result = json.loads(raw_content)
         return result
         
     except Exception as e:
