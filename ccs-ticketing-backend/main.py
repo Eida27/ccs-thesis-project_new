@@ -19,6 +19,8 @@ app = FastAPI(title="CCS ITSM Ticketing Engine")
 # We explicitly allow our Next.js frontend origin to communicate with this API
 origins = [
     "http://localhost:3000",
+    "https://ccs-thesis-project.vercel.app", # Add this placeholder for now
+    # We will update this with your exact Vercel URL once they give it to you!
 ]
 
 app.add_middleware(
